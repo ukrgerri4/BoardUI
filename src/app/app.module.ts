@@ -4,7 +4,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AccessInterceptor } from './helpers/access.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { registerLocaleData } from '@angular/common';
 // import localeRu from '@angular/common/locales/ru';
 
@@ -18,14 +20,15 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    NgbModule
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: AccessInterceptor,
-    //   multi: true
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessInterceptor,
+      multi: true
+    },
     {
       provide: LOCALE_ID,
       useValue: 'uk-UA'

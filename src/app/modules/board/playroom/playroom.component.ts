@@ -37,6 +37,6 @@ export class PlayroomComponent implements OnInit {
   }
 
   logout() {
-    this.router.navigateByUrl('/auth/sign-in', { state: { redirectUrl: '/playroom' } });
+    this.router.navigateByUrl('/auth/sign-in', { state: { returnUrl: '/playroom' } });
   }
 }

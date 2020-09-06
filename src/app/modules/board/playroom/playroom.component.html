@@ -1,4 +1,4 @@
-<div #header class="header">
+<header #header class="header">
   <div class="d-flex text-white p-2" (click)="toggleMenu()">
     <i class="material-icons" [style.fontSize]="'36px'">{{isMenuOpen ? 'menu_open' : 'menu'}}</i>
   </div>
@@ -6,17 +6,16 @@
   <div class="d-flex text-white p-2" (click)="logout()">
     <i class="material-icons" [style.fontSize]="'36px'">exit_to_app</i>
   </div>
+</header>
+
+<div class="side-menu" [ngClass]="{'opened': isMenuOpen, 'closed': !isMenuOpen}">
+  <div class="h-100 w-75 bg-white">
+    <a class="nav-link" [routerLink]="'./resistance'">Resistance</a>
+  </div>
+  <div class="h-100 w-25" (click)="toggleMenu()"></div>
 </div>
 
-<div [style.paddingTop]="'50px'">
-  The static option for @ViewChild() and @ContentChild() queries determines when the query results become available.
-
-With static queries (static: true), the query resolves once the view has been created, but before change detection runs. The result, though, will never be updated to reflect changes to your view, such as changes to ngIf and ngFor blocks.
-
-With dynamic queries (static: false), the query resolves after either ngAfterViewInit() or ngAfterContentInit() for @ViewChild() and @ContentChild() respectively. The result will be updated for changes to your view, such as changes to ngIf and ngFor blocks.
-The static option for @ViewChild() and @ContentChild() queries determines when the query results become available.
-
-With static queries (static: true), the query resolves once the view has been created, but before change detection runs. The result, though, will never be updated to reflect changes to your view, such as changes to ngIf and ngFor blocks.
-
-With dynamic queries (static: false), the query resolves after either ngAfterViewInit() or ngAfterContentInit() for @ViewChild() and @ContentChild() respectively. The result will be updated for changes to your view, such as changes to ngIf and ngFor blocks.
+<!-- <div [style.paddingTop]="'50px'"></div> -->
+<div class="h-100 w-100" [style.paddingTop]="'50px'">
+  <router-outlet></router-outlet>
 </div>

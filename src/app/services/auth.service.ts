@@ -12,6 +12,10 @@ export class AuthService extends BaseHttpService {
 
   private ACCESS_TOKEN_KEY = 'access_token';
 
+  get accesToken() {
+    return localStorage.getItem(this.ACCESS_TOKEN_KEY);
+  }
+
   get isAuthorized() {
     const accessToken = localStorage.getItem(this.ACCESS_TOKEN_KEY);
     return !!accessToken;
@@ -25,8 +29,8 @@ export class AuthService extends BaseHttpService {
     return this.http.post<any>(this.buildApiUrl(API.AUTH.LOGIN), model)
       .pipe(
         tap(response => {
-          if (!!response?.id){
-            localStorage.setItem(this.ACCESS_TOKEN_KEY, response?.id);
+          if (!!response?.accessToken){
+            localStorage.setItem(this.ACCESS_TOKEN_KEY, response?.accessToken);
           }
         })
       );
