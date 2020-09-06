@@ -1,25 +1,21 @@
-.header-mobile {
+@import "~src/styles.scss";
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   top: 0;
   left: 0;
-  z-index: 20;
-  height: 120px;
+  z-index: 1030;
+  height: 50px;
   width: 100%;
-  background: #222;
-  -ms-flex-pack: center;
-  justify-content: center;
-  font-family: Open Sans,sans-serif;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-transition: top .25s linear;
-  -o-transition: top .25s linear;
-  transition: top .25s linear;
- 
-  &.header-mobile_stick {
-    position: fixed;
-  }
+  background: $dark;
 
-  &.header-mobile_unstick {
+  @include media-breakpoint-down(sm) {
     position: fixed;
-    top: -120px;
+    -webkit-transition: top .25s linear;
+    -o-transition: top .25s linear;
+    transition: top .25s linear;
   }
 }

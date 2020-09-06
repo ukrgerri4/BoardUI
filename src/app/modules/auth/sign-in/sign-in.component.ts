@@ -14,9 +14,12 @@ import { Router } from '@angular/router';
 export class SignInComponent implements OnInit, OnDestroy {
 
   public submitted = false;
+  public isServerError = false;
   public form: FormGroup = new FormGroup({});
   private submitSubject$: Subject<any> = new Subject<any>();
   private destroy$: Subject<boolean> = new Subject<boolean>();
+
+  private redirectAfterLoginUrl: null;
 
   get userName() {
     return this.form?.controls?.userName;
@@ -31,7 +34,9 @@ export class SignInComponent implements OnInit, OnDestroy {
     private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService
-  ) { }
+  ) {
+    this.redirectAfterLoginUrl = this.router?.getCurrentNavigation()?.extras?.state?.redirectUrl;
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -55,12 +60,13 @@ export class SignInComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         tap(() => this.submitted = true),
+        tap(() => this.isServerError = false),
         filter(() => this.form.valid),
         map(() => this.form.getRawValue()),
         switchMap(query => this.authService.signIn(query)
           .pipe(
             catchError(error => {
-              console.log(error);
+              this.isServerError  = true;
               return of(null);
             })
           )
@@ -69,9 +75,14 @@ export class SignInComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.submitted = false;
-          this.router.navigateByUrl('/playroom', { replaceUrl: true });
+          const url = this.redirectAfterLoginUrl ?? '/playroom';
+          this.router.navigateByUrl(url, { replaceUrl: true });
+          this.cdr.markForCheck();
         },
-        error => console.log(error)
+        error => {
+          console.log(error);
+          this.cdr.markForCheck();
+        }
       );
   }
 

@@ -4,8 +4,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { AuthModule } from './modules/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
+// import { registerLocaleData } from '@angular/common';
+// import localeRu from '@angular/common/locales/ru';
+
+// registerLocaleData(localeRu);
 
 @NgModule({
   declarations: [

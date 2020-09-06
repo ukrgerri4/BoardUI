@@ -2,14 +2,19 @@
 <div class="col-sm-6 col-md-4 col-lg-4 col-xl-2">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
     <div class="mb-3">
-      <label for="login" class="form-label">Name</label>
+      <label for="login" class="form-label" i18n>Name</label>
       <input type="text" id="login" formControlName="userName" class="form-control" [ngClass]="{'is-invalid': submitted && userName?.invalid }">
     </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
+    <div>
+      <label for="password" class="form-label" i18n>Password</label>
       <input type="password" id="password" formControlName="password" class="form-control" [ngClass]="{'is-invalid': submitted && password?.invalid }">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div class="my-2" [style.height]="'24px'">
+      <span *ngIf="isServerError" class="text-danger" i18n>Server error</span>
+    </div>
+
+    <button type="submit" class="btn btn-primary" i18n>Submit</button>
   </form>  
 </div>
 

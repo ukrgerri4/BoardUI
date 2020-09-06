@@ -5,6 +5,19 @@
   "projects": {
     "BoardUI": {
       "projectType": "application",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "en": {
+            "translation": "src/locales/messages.xlf",
+            "baseHref": ""
+          },
+          "ru": {
+            "translation": "src/locales/messages.ru.xlf",
+            "baseHref": ""
+          }
+        }
+      },
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -23,6 +36,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
+            "localize": true,
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -41,6 +55,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "localize": ["en", "ru"],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -63,6 +78,9 @@
               ],
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
+            },
+            "ru": {
+              "localize": ["ru"]
             }
           }
         },
@@ -74,6 +92,9 @@
           "configurations": {
             "production": {
               "browserTarget": "BoardUI:build:production"
+            },
+            "ru": {
+              "browserTarget": "BoardUI:build:ru"
             }
           }
         },
