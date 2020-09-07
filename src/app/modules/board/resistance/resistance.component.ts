@@ -15,6 +15,6 @@ export class ResistanceComponent implements OnInit {
   ngOnInit(): void { }
 
   openModal() {
-    const modalRef = this.modalService.open(CreateGameModalComponent);
+    const modalRef = this.modalService.open(CreateGameModalComponent, { windowClass: 'fullscreen' });
   }
 }
