@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration=ru --port 4201 --open",
-    "build": "ng build -c=production --aot --vendor-chunk --common-chunk --delete-output-path --build-optimizer --output-hashing=all",
+    "build": "ng build -c=production --aot --vendor-chunk --common-chunk --delete-output-path --build-optimizer --output-hashing=all --localize",
     "build-pwa": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",

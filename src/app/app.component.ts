@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ResistanceSignalRService } from './services/resistance-signalr.service';
+import { ResistanceSignalRService } from './modules/board/resistance/services/resistance-signalr.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,5 @@ import { ResistanceSignalRService } from './services/resistance-signalr.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  title = 'BoardUI';
-
-  constructor(private resistanceSignalRService: ResistanceSignalRService) {
-    // this.resistanceSignalRService.connect();
-  }
+  constructor() {}
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { CreateGameModalComponent } from './create-game-modal/create-game-modal.component';
+import { Component, OnInit, ChangeDetectionStrategy, Input, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ResistanceSignalRService } from 'src/app/modules/board/resistance/services/resistance-signalr.service';
+import { CreateGameModalComponent } from './components/create-game-modal/create-game-modal.component';
 
 @Component({
   selector: 'app-resistance',
@@ -8,11 +9,21 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./resistance.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResistanceComponent implements OnInit {
+export class ResistanceComponent implements OnInit, OnDestroy {
 
-  constructor(private modalService: NgbModal) { }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private modalService: NgbModal,
+    private resistanceSignalRService: ResistanceSignalRService
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.resistanceSignalRService.connect();
+  }
+
+  ngOnDestroy() {
+    this.resistanceSignalRService.disconnect();
+  }
 
   openModal() {
     const modalRef = this.modalService.open(CreateGameModalComponent, { windowClass: 'fullscreen' });

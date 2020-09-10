@@ -55,7 +55,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "localize": ["en", "ru"],
+              "localize": ["en"],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -72,8 +72,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "600kb",
+                  "maximumError": "1mb"
                 }
               ],
               "serviceWorker": true,

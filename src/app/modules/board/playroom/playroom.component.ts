@@ -15,8 +15,8 @@ export class PlayroomComponent implements OnInit {
   private headerRef?: ElementRef<HTMLElement>; 
 
   private prevScrollpos = window.pageYOffset;
-  @HostListener('window:scroll', ['event'])
-  onScroll(event: any) {
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: MouseEvent) {
     if (!this.headerRef) { return; }
     
     const currentScrollPos = window.pageYOffset;

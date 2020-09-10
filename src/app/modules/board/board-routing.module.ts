@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PlayroomComponent } from './playroom/playroom.component';
-import { AuthGuard } from 'src/app/guards/auth.guard';
 import { ResistanceComponent } from './resistance/resistance.component';
 
 const routes: Routes = [
