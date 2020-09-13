@@ -8,7 +8,7 @@
   top: 0;
   left: 0;
   z-index: 1030;
-  height: 50px;
+  height: $header-menu-height;
   width: 100%;
   background: $dark;
 
@@ -43,5 +43,11 @@
 
   &.closed {
     transform: translateX(-100%);
+  }
+}
+
+.current-game-wrap {
+  @include media-breakpoint-down(sm) {
+    padding-top: $header-menu-height;
   }
 }

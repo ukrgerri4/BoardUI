@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { MafiaComponent } from './mafia/mafia.component';
 import { PlayroomComponent } from './playroom/playroom.component';
 import { ResistanceComponent } from './resistance/resistance.component';
 
@@ -11,6 +12,10 @@ const routes: Routes = [
       {
         path: 'resistance',
         component: ResistanceComponent,
+      },
+      {
+        path: 'mafia',
+        component: MafiaComponent,
       }
     ]
   },

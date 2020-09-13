@@ -14,11 +14,15 @@ $enable-validation-icons: false;
 @import "../node_modules/bootstrap/scss/forms";
 @import "../node_modules/bootstrap/scss/buttons";
 @import "../node_modules/bootstrap/scss/grid";
-@import "../node_modules/bootstrap/scss/nav";
-@import "../node_modules/bootstrap/scss/navbar";
+// @import "../node_modules/bootstrap/scss/nav";
+// @import "../node_modules/bootstrap/scss/navbar";
 @import "../node_modules/bootstrap/scss/transitions";
 @import "../node_modules/bootstrap/scss/modal";
 @import "../node_modules/bootstrap/scss/close";
+
+/* Inner variables*/
+$header-menu-height: 50px;
+
 
 html,
 body {
