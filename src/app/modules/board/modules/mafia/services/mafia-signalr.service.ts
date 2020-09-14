@@ -21,7 +21,6 @@ export class MafiaSignalRService implements OnDestroy {
   }
   // private destroy$: Subject<boolean> = new Subject<boolean>();
 
-
   constructor(private authService: AuthService) {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl('https://localhost:5001/hubs/mafia', {
@@ -49,6 +48,7 @@ export class MafiaSignalRService implements OnDestroy {
   ngOnDestroy() {
     this.disconnect();
     this.messageSubject.complete();
+
   }
 
   public connect() {

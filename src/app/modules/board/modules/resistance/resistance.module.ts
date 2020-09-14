@@ -18,9 +18,6 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule
-  ],
-  providers: [
-    ResistanceSignalRService
   ]
 })
 export class ResistanceModule { }
