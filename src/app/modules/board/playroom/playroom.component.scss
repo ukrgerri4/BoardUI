@@ -46,7 +46,7 @@
   }
 }
 
-.current-game-wrap {
+.current-game-wrap {  
   @include media-breakpoint-down(sm) {
     padding-top: $header-menu-height;
   }

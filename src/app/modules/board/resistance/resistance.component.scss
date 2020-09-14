@@ -1,0 +1,22 @@
+@import "~node_modules/bootstrap/scss/functions";
+@import "~node_modules/bootstrap/scss/_variables";
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.resistance-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  position: fixed;
+
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+  height: 50px;
+  width: 100%;
+  background: $dark;
+}

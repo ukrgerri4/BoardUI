@@ -9,7 +9,6 @@ import { CreateGameModalComponent } from './components/create-game-modal/create-
   selector: 'app-resistance',
   templateUrl: './resistance.component.html',
   styleUrls: ['./resistance.component.scss'],
-  providers: [ResistanceSignalRService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResistanceComponent implements OnInit, OnDestroy {
@@ -55,8 +54,9 @@ export class ResistanceComponent implements OnInit, OnDestroy {
       );
   }
 
-  openModal() {
-    const modalRef = this.modalService.open(CreateGameModalComponent, { windowClass: 'fullscreen' });
+  createGameModal() {
+    // const modalRef = this.modalService.open(CreateGameModalComponent, { windowClass: 'fullscreen' });
+    const modalRef = this.modalService.open(CreateGameModalComponent, { centered: true });
   }
 
   createGame() {
