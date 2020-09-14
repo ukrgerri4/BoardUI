@@ -1,21 +1,21 @@
-import { Subject, Observable, from } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import * as signalR from '@aspnet/signalr';
 import { Injectable, OnDestroy } from '@angular/core';
-import { AuthService } from '../../../../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
-export enum ResistanceMessage {
+export enum MafiaMessage {
   AvailableGames = 1,
   GameState = 2,
   CreateGame = 3
 }
 
 @Injectable()
-export class ResistanceSignalRService implements OnDestroy {
+export class MafiaSignalRService implements OnDestroy {
 
   private SERVER_TIMEOUT_MS = 1000 * 60 * 2;
   private hubConnection: signalR.HubConnection;
 
-  private messageSubject = new Subject<{ messageType: ResistanceMessage, data: any }>();
+  private messageSubject = new Subject<{ messageType: MafiaMessage, data: any }>();
   get onMessage() {
     return this.messageSubject.asObservable();
   }
@@ -24,7 +24,7 @@ export class ResistanceSignalRService implements OnDestroy {
 
   constructor(private authService: AuthService) {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:5001/hubs/resistance', {
+      .withUrl('https://localhost:5001/hubs/mafia', {
         // tslint:disable-next-line: no-bitwise
         transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling,
         accessTokenFactory: () => this.authService.accesToken
@@ -40,8 +40,8 @@ export class ResistanceSignalRService implements OnDestroy {
 
     this.hubConnection.serverTimeoutInMilliseconds = this.SERVER_TIMEOUT_MS;
 
-    this.hubConnection.on('available-games', data => this.messageSubject.next({ messageType: ResistanceMessage.AvailableGames, data }));
-    this.hubConnection.on('game-state', data => this.messageSubject.next({ messageType: ResistanceMessage.GameState, data }));
+    this.hubConnection.on('available-games', data => this.messageSubject.next({ messageType: MafiaMessage.AvailableGames, data }));
+    this.hubConnection.on('game-state', data => this.messageSubject.next({ messageType: MafiaMessage.GameState, data }));
 
     // this.hubConnection.onclose(() => this.connect());
   }
@@ -52,10 +52,8 @@ export class ResistanceSignalRService implements OnDestroy {
   }
 
   public connect() {
-    return from(
-      this.hubConnection?.start()
-        .catch(e => setTimeout(() => this.connect(), 5000))
-    );
+    this.hubConnection?.start()
+      .catch(e => setTimeout(() => this.connect(), 5000));
   }
 
   public disconnect() {
@@ -64,6 +62,12 @@ export class ResistanceSignalRService implements OnDestroy {
   }
 
   public createGame() {
-    return from(this.hubConnection.invoke('CreateGame'));
+    this.hubConnection.invoke('CreateGame')
+      .then(result => {
+        console.log('crategame result ' + result);
+        return result;
+      })
+      .then(result => this.messageSubject.next({ messageType: MafiaMessage.CreateGame, data: result }))
+      .catch(error => console.log('Resistance createGame: ' + error));
   }
 }

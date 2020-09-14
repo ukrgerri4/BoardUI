@@ -6,7 +6,7 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AccessInterceptor } from './helpers/access.interceptor';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 // import { registerLocaleData } from '@angular/common';
 // import localeRu from '@angular/common/locales/ru';
 
@@ -21,7 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    NgbModule
+    ModalModule.forRoot()
   ],
   providers: [
     {

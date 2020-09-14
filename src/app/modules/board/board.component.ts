@@ -1,13 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-playroom',
-  templateUrl: './playroom.component.html',
-  styleUrls: ['./playroom.component.scss'],
+  selector: 'app-board',
+  templateUrl: './board.component.html',
+  styleUrls: ['./board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayroomComponent implements OnInit {
+export class BoardComponent implements OnInit {
 
   public isMenuOpen = false;
 
@@ -39,4 +39,5 @@ export class PlayroomComponent implements OnInit {
   logout() {
     this.router.navigateByUrl('/auth/sign-in', { state: { returnUrl: '/playroom' } });
   }
+
 }

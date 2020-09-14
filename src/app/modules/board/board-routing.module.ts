@@ -1,17 +1,29 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MafiaComponent } from './mafia/mafia.component';
-import { PlayroomComponent } from './playroom/playroom.component';
-import { ResistanceComponent } from './resistance/resistance.component';
+import { BoardComponent } from './board.component';
+import { MafiaComponent } from './modules/mafia/mafia.component';
+import { ResistanceInGameComponent } from './modules/resistance/components/in-game/resistance-in-game.component';
+import { ResistanceLobbyComponent } from './modules/resistance/components/lobby/resistance-lobby.component';
+import { ResistanceComponent } from './modules/resistance/resistance.component';
 
 const routes: Routes = [
   {
-    path: 'playroom',
-    component: PlayroomComponent,
+    path: '',
+    component: BoardComponent,
     children: [
       {
         path: 'resistance',
         component: ResistanceComponent,
+        children: [
+          {
+            path: '',
+            component: ResistanceLobbyComponent
+          },
+          {
+            path: ':id',
+            component: ResistanceInGameComponent
+          }
+        ]
       },
       {
         path: 'mafia',
@@ -21,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'playroom'
+    redirectTo: ''
   }
 ];
 

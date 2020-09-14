@@ -18,7 +18,7 @@
 
 <div class="side-menu" [ngClass]="{'opened': isMenuOpen, 'closed': !isMenuOpen}" (click)="toggleMenu()">
   <div class="h-100 bg-white" [style.width]="'250px'">
-    <a class="d-block" [routerLink]="'./resistance'" routerLinkActive="active">Resistance</a>
+    <a class="d-block" [routerLink]="['resistance']" routerLinkActive="active">Resistance</a>
     <a class="d-block" [routerLink]="'./mafia'" routerLinkActive="bg-success">Mafia</a>
     <a class="d-block" [routerLink]="'/playroom'">Menu</a>
 
