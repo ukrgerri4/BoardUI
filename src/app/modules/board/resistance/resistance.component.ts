@@ -25,7 +25,9 @@ export class ResistanceComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.resistanceSignalRService.connect();
+    this.resistanceSignalRService.connect()
+      .pipe()
+      .subscribe(r => console.log(r));
 
     this.initMessagesSubscription();
   }

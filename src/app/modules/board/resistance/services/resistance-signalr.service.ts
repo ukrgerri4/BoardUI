@@ -52,8 +52,10 @@ export class ResistanceSignalRService implements OnDestroy {
   }
 
   public connect() {
-    this.hubConnection?.start()
-      .catch(e => setTimeout(() => this.connect(), 5000));
+    return from(
+      this.hubConnection?.start()
+        .catch(e => setTimeout(() => this.connect(), 5000))
+    );
   }
 
   public disconnect() {
