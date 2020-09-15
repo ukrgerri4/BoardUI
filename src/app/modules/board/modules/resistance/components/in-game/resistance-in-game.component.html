@@ -1,9 +1,14 @@
-<div class="row g-0 row-cols-3">
-  <div class="col-4">Player 1</div>
-  <div class="col-4"></div>
-  <div class="col-4">Player 2</div>
-  <div class="col-4">Player 3</div>
-  <div class="col-4"></div>
-  <div class="col-4">Player 4</div>
+<div class="row g-0 row-cols-3 p-1">
+  <ng-template ngFor let-cell [ngForOf]="gameGrid" let-i="index">
 
+    <ng-template [ngIf]="!!cell" [ngIfElse]="emptyCell">
+      <app-resistance-player class="col-4 border border-radius shadow-lg p-1"></app-resistance-player>
+    </ng-template>
+
+    <ng-template #emptyCell>
+      <div class="col-4"></div>
+    </ng-template>
+
+  </ng-template>
+  
 </div>
