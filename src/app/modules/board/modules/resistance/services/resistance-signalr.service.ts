@@ -1,4 +1,4 @@
-import { Subject, Observable, from } from 'rxjs';
+import { Subject, Observable, from, BehaviorSubject } from 'rxjs';
 import * as signalR from '@aspnet/signalr';
 import { Injectable, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,7 +15,7 @@ export class ResistanceSignalRService implements OnDestroy {
   private SERVER_TIMEOUT_MS = 1000 * 60 * 2;
   private hubConnection: signalR.HubConnection;
 
-  private messageSubject = new Subject<{ messageType: ResistanceMessage, data: any }>();
+  private messageSubject = new BehaviorSubject<{ messageType: ResistanceMessage, data: any }>(null);
   get onMessage() {
     return this.messageSubject.asObservable();
   }
@@ -41,7 +41,10 @@ export class ResistanceSignalRService implements OnDestroy {
     this.hubConnection.serverTimeoutInMilliseconds = this.SERVER_TIMEOUT_MS;
 
     this.hubConnection.on('available-games', data => this.messageSubject.next({ messageType: ResistanceMessage.AvailableGames, data }));
-    this.hubConnection.on('game-state', data => this.messageSubject.next({ messageType: ResistanceMessage.GameState, data }));
+    this.hubConnection.on('game-state', data => {
+      console.log(data);
+      this.messageSubject.next({ messageType: ResistanceMessage.GameState, data });
+    });
 
     // this.hubConnection.onclose(() => this.connect());
   }

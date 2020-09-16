@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
@@ -12,7 +12,7 @@ import { CreateGameModalComponent } from '../create-game-modal/create-game-modal
   styleUrls: ['./resistance-lobby.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResistanceLobbyComponent implements OnInit {
+export class ResistanceLobbyComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 

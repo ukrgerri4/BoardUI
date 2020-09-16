@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-resistance-player',
@@ -7,6 +7,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResistancePlayerComponent implements OnInit {
+
+  @Input() public data: any;
 
   constructor() { }
 

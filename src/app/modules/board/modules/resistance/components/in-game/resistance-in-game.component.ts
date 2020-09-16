@@ -15,6 +15,16 @@ export class ResistanceInGameComponent implements OnInit, OnDestroy {
   private gameId: string = null;
 
   public gameGrid: number[];
+  public gameState = {
+    state: 1,
+    players: [
+      { id: 1, name: 'Igor'},
+      { id: 2, name: 'Zepsen', isBoss: true},
+      { id: 3, name: 'Murina'},
+      { id: 4, name: 'Yulia'},
+      { id: 5, name: 'Stas'}
+    ]
+  };
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -43,7 +53,7 @@ export class ResistanceInGameComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         event => {
-          // this.createGrid();
+          console.log(event);
         }
       );
   }
