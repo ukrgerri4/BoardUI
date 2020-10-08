@@ -8,10 +8,6 @@
       "i18n": {
         "sourceLocale": "en-US",
         "locales": {
-          "en": {
-            "translation": "src/locales/messages.xlf",
-            "baseHref": ""
-          },
           "ru": {
             "translation": "src/locales/messages.ru.xlf",
             "baseHref": ""
@@ -43,7 +39,7 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/styles.scss"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
@@ -57,7 +53,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "localize": ["ru"],
+              "localize": [ "en", "ru" ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -74,8 +70,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "600kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ],
               "serviceWorker": true,

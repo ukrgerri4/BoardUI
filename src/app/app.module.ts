@@ -7,10 +7,10 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AccessInterceptor } from './helpers/access.interceptor';
 import { ModalModule } from 'ngx-bootstrap/modal';
-// import { registerLocaleData } from '@angular/common';
-// import localeRu from '@angular/common/locales/ru';
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
 
-// registerLocaleData(localeRu);
+registerLocaleData(localeRu);
 
 @NgModule({
   declarations: [
