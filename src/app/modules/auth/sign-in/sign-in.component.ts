@@ -19,7 +19,7 @@ export class SignInComponent implements OnInit, OnDestroy {
   private submitSubject$: Subject<any> = new Subject<any>();
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  private returnUrl: null;
+  private returnUrl: '/';
 
   get userName() {
     return this.form?.controls?.userName;
@@ -35,7 +35,8 @@ export class SignInComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private authService: AuthService
   ) {
-    this.returnUrl = this.router?.getCurrentNavigation()?.extras?.state?.returnUrl;
+    this.returnUrl = this.router?.getCurrentNavigation()?.extras?.state?.returnUrl ?? '/';
+    console.log(this.returnUrl);
   }
 
   ngOnInit(): void {
@@ -75,8 +76,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.submitted = false;
-          const url = this.returnUrl ?? '/playroom';
-          this.router.navigateByUrl(url, { replaceUrl: true });
+          this.router.navigateByUrl(this.returnUrl, { replaceUrl: true });
           this.cdr.markForCheck();
         },
         error => {

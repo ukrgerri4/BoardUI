@@ -3,7 +3,7 @@
     <i class="material-icons" [style.fontSize]="'36px'">{{isMenuOpen ? 'menu_open' : 'menu'}}</i>
   </div>
 
-  <div class="dropdown">
+  <div dropdown>
     <div role="button" class="d-flex text-white p-2" id="userMenuRef" data-toggle="dropdown" aria-expanded="false">
       <i class="material-icons" [style.fontSize]="'36px'">account_box</i>
     </div>
@@ -16,14 +16,16 @@
   </div>
 </header>
 
-<div class="side-menu" [ngClass]="{'opened': isMenuOpen, 'closed': !isMenuOpen}" (click)="toggleMenu()">
-  <div class="h-100 bg-white" [style.width]="'250px'">
-    <a class="d-block" [routerLink]="['resistance']" routerLinkActive="active">Resistance</a>
-    <a class="d-block" [routerLink]="'./mafia'" routerLinkActive="bg-success">Mafia</a>
-    <a class="d-block" [routerLink]="'/playroom'">Menu</a>
+<div (click)="toggleMenu()" class="side-menu" [ngClass]="{'opened': isMenuOpen, 'closed': !isMenuOpen}">
+  <a class="d-block" [routerLink]="['resistance']" routerLinkActive="bg-success">Resistance</a>
+  <a class="d-block" [routerLink]="'./mafia'" routerLinkActive="bg-success">Mafia</a>
+  <a class="d-block" [routerLink]="'./'">Menu</a>
+</div>
 
-  </div>
-  <div class="h-100 flex-fill"></div>
+<div
+  (click)="toggleMenu()"
+  class="side-menu-overlay"
+  [ngClass]="{'visible': isMenuOpen, 'hidden': !isMenuOpen}">
 </div>
 
 <div class="current-game-wrap">

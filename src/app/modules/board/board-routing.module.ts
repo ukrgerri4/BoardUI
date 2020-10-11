@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 import { BoardComponent } from './board.component';
-import { MafiaComponent } from './modules/mafia/mafia.component';
-import { ResistanceInGameComponent } from './modules/resistance/components/in-game/resistance-in-game.component';
-import { ResistanceLobbyComponent } from './modules/resistance/components/lobby/resistance-lobby.component';
-import { ResistanceComponent } from './modules/resistance/resistance.component';
 
 const routes: Routes = [
   {
@@ -13,22 +10,20 @@ const routes: Routes = [
     children: [
       {
         path: 'resistance',
-        component: ResistanceComponent,
-        children: [
-          {
-            path: '',
-            component: ResistanceLobbyComponent
-          },
-          {
-            path: ':id',
-            component: ResistanceInGameComponent
-          }
-        ]
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./modules/resistance/resistance.module').then(mod => mod.ResistanceModule)
+
       },
       {
         path: 'mafia',
-        component: MafiaComponent,
-      }
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./modules/mafia/mafia.module').then(mod => mod.MafiaModule)
+      },
+      // {
+      //   path: 'munchkin',
+      //   canActivate: [AuthGuard],
+      //   loadChildren: () => import('./modules/mafia/mafia.module').then(mod => mod.MunchkinModule)
+      // }
     ]
   },
   {

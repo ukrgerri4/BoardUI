@@ -55,7 +55,7 @@ export class ResistanceSignalRService implements OnDestroy {
   }
 
   public connect() {
-    this.hubConnection.start()
+    this.hubConnection?.start()
       .catch(e => setTimeout(() => this.connect(), 5000))
   }
 
@@ -65,6 +65,6 @@ export class ResistanceSignalRService implements OnDestroy {
   }
 
   public createGame() {
-    return from(this.hubConnection.invoke('CreateGame'));
+    return from(this.hubConnection?.invoke('CreateGame'));
   }
 }

@@ -3,16 +3,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 import { filter, take, takeUntil } from 'rxjs/operators';
-import { ResistanceMessage, ResistanceSignalRService } from '../../services/resistance-signalr.service';
-import { CreateGameModalComponent } from '../create-game-modal/create-game-modal.component';
+import { MafiaMessage, MafiaSignalRService } from '../../services/mafia-signalr.service';
+import { MafiaCreateComponent } from '../create/mafia-create.component';
 
 @Component({
-  selector: 'app-resistance-lobby',
-  templateUrl: './resistance-lobby.component.html',
-  styleUrls: ['./resistance-lobby.component.scss'],
+  selector: 'app-mafia-lobby',
+  templateUrl: './mafia-lobby.component.html',
+  styleUrls: ['./mafia-lobby.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResistanceLobbyComponent implements OnInit, OnDestroy {
+export class MafiaLobbyComponent implements OnInit, OnDestroy {
+
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -21,7 +22,7 @@ export class ResistanceLobbyComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private modalService: BsModalService,
-    private resistanceSignalRService: ResistanceSignalRService
+    private mafiaSignalRService: MafiaSignalRService
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +35,7 @@ export class ResistanceLobbyComponent implements OnInit, OnDestroy {
   }
 
   initMessagesSubscription() {
-    this.resistanceSignalRService.onMessage
+    this.mafiaSignalRService.onMessage
       .pipe(
         takeUntil(this.destroy$),
         filter(event => !!event?.messageType)
@@ -42,9 +43,9 @@ export class ResistanceLobbyComponent implements OnInit, OnDestroy {
       .subscribe(
         event => {
           switch (event.messageType) {
-            case ResistanceMessage.AvailableGames:
+            case MafiaMessage.AvailableGames:
               break;
-            case ResistanceMessage.GameState:
+            case MafiaMessage.GameState:
               break;
           }
         }
@@ -53,23 +54,24 @@ export class ResistanceLobbyComponent implements OnInit, OnDestroy {
 
   createGameModal() {
     const modalRef = this.modalService.show(
-      CreateGameModalComponent,
+      MafiaCreateComponent,
       {
         initialState: {
-          signalRService: this.resistanceSignalRService
+          signalRService: this.mafiaSignalRService
         },
-        animated: false,
-        keyboard: true,
-        backdrop: true,
+        animated: true,
+        keyboard: false,
+        backdrop: false,
         class: 'modal-fullscreen'
       }
     );
 
-    (modalRef.content as CreateGameModalComponent).onClose
+    (modalRef.content as MafiaCreateComponent).onClose
       .pipe(
         take(1),
         filter(id => !!id)
       )
       .subscribe(id => this.router.navigate([id], { relativeTo: this.route }));
   }
+
 }

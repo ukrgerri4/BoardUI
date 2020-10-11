@@ -8,6 +8,7 @@ import { ResistanceLobbyComponent } from './components/lobby/resistance-lobby.co
 import { RouterModule } from '@angular/router';
 import { ResistancePlayerComponent } from './components/in-game/components/player/resistance-player.component';
 import { BRadioModule } from 'src/app/components/b-radio/b-radio.module';
+import { ResistanceRoutingModule } from './resistance-routing.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { BRadioModule } from 'src/app/components/b-radio/b-radio.module';
     ResistancePlayerComponent
   ],
   imports: [
+    ResistanceRoutingModule,
     CommonModule,
     RouterModule,
     BRadioModule
