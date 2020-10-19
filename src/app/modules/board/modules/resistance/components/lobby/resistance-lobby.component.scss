@@ -1,5 +1,5 @@
-@import "~node_modules/bootstrap/scss/functions";
-@import "~node_modules/bootstrap/scss/_variables";
+@import "~src/styles/constants/sizes.scss";
+@import "~src/styles/constants/colors.scss";
 
 :host {
   display: flex;

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
-import { filter, take, takeUntil } from 'rxjs/operators';
+import { filter, take, takeUntil, tap } from 'rxjs/operators';
 import { MafiaMessage, MafiaSignalRService } from '../../services/mafia-signalr.service';
 import { MafiaCreateComponent } from '../create/mafia-create.component';
 
@@ -38,21 +38,22 @@ export class MafiaLobbyComponent implements OnInit, OnDestroy {
     this.mafiaSignalRService.onMessage
       .pipe(
         takeUntil(this.destroy$),
-        filter(event => !!event?.messageType)
+        filter(event => !!event?.messageType),
+        tap(e => console.log(e.data))
       )
       .subscribe(
         event => {
           switch (event.messageType) {
             case MafiaMessage.AvailableGames:
               break;
-            case MafiaMessage.GameState:
+            case MafiaMessage.UpdateState:
               break;
           }
         }
       );
   }
 
-  createGameModal() {
+  createGame() {
     const modalRef = this.modalService.show(
       MafiaCreateComponent,
       {
@@ -74,4 +75,7 @@ export class MafiaLobbyComponent implements OnInit, OnDestroy {
       .subscribe(id => this.router.navigate([id], { relativeTo: this.route }));
   }
 
+  // createGame() {
+  //   this.mafiaSignalRService.createGame();
+  // }
 }

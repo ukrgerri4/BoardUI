@@ -9,6 +9,8 @@ import { AccessInterceptor } from './helpers/access.interceptor';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 registerLocaleData(localeRu);
 
@@ -21,7 +23,9 @@ registerLocaleData(localeRu);
     AppRoutingModule,
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {

@@ -1,0 +1,17 @@
+@import "~src/styles/constants/sizes.scss";
+@import "~src/styles/constants/colors.scss";
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  position: fixed;
+
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+  height: 50px;
+  width: 100%;
+  background: $dark;
+}

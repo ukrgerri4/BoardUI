@@ -16,11 +16,11 @@ export class MafiaComponent implements OnInit {
     this.mafiaSignalRService.connect();
   }
 
-  connectHub() {
-    this.mafiaSignalRService.connect();
-  }
+  // connectHub() {
+  //   this.mafiaSignalRService.connect();
+  // }
 
-  disconnectHub() {
-    this.mafiaSignalRService.disconnect();
-  }
+  // disconnectHub() {
+  //   this.mafiaSignalRService.disconnect();
+  // }
 }
