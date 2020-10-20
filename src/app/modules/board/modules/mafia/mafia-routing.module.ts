@@ -6,17 +6,18 @@ import { MafiaComponent } from './mafia.component';
 
 const routes: Routes = [
   {
-    // path: '',
+    path: '',
     component: MafiaComponent,
     children: [
       {
-        path: 'lobby',
+        path: '',
         component: MafiaLobbyComponent
       },
       {
         path: ':id',
         component: MafiaGameComponent
-      }
+      },
+
     ]
   }
 ];

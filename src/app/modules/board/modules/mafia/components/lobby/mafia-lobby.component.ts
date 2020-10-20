@@ -6,6 +6,28 @@ import { filter, take, takeUntil, tap } from 'rxjs/operators';
 import { MafiaMessage, MafiaSignalRService } from '../../services/mafia-signalr.service';
 import { MafiaCreateComponent } from '../create/mafia-create.component';
 
+const testData = {
+  active: [
+    {
+      id: 1,
+      name: 'running-game',
+      capacity: '4/6'
+    }
+  ],
+  avalible: [
+    {
+      id: 2,
+      name: 'huba-buba',
+      capacity: '3/5'
+    },
+    {
+      id: 3,
+      name: 'test-game',
+      capacity: '1/7'
+    }
+  ]
+};
+
 @Component({
   selector: 'app-mafia-lobby',
   templateUrl: './mafia-lobby.component.html',
@@ -14,7 +36,7 @@ import { MafiaCreateComponent } from '../create/mafia-create.component';
 })
 export class MafiaLobbyComponent implements OnInit, OnDestroy {
 
-
+  public createdGames: any = testData;
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
