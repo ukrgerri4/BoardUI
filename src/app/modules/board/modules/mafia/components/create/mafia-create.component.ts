@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { of, Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
 import { HubResult, isSuccesStatusCode } from '../../../common/models/hub-result';
 import { MafiaSignalRService } from '../../services/mafia-signalr.service';
 
@@ -37,16 +37,21 @@ export class MafiaCreateComponent implements OnInit, OnDestroy {
     this.loading = true;
 
     this.signalRService.createGame()
+      .pipe(
+        take(1),
+        catchError(error => of(null))
+      )
       .subscribe(
         (result: HubResult) => {
-          if (isSuccesStatusCode(result) && !!result.data) {
+          if (result && isSuccesStatusCode(result) && !!result.data) {
             this.gameId = result.data;
             this.bsModalRef.hide();
           } else {
             this.toastrService.error(result?.data ?? "Create game error");
-            this.loading = false;
-            this.cdr.markForCheck();
           }
+
+          this.loading = false;
+          this.cdr.markForCheck();
         }
       );
   }

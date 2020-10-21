@@ -26,14 +26,14 @@ export class MafiaSignalRService extends BaseGameSignalRService<MafiaMessage> im
   }
 
   public createGame() {
-    return from(this.hubConnection?.invoke('CreateGame'))
-      .pipe(
-        tap((result: HubResult) => this.messageSubject.next({ messageType: MafiaMessage.CreateGame, data: result })),
-        catchError(error => of(null))
-      );
+    return from(this.hubConnection?.invoke('CreateGame'));
   }
 
   public updateState() {
     return from(this.hubConnection?.invoke('UpdateState'));
+  }
+
+  public games() {
+    return from(this.hubConnection?.invoke('Games'));
   }
 }

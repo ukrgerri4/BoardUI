@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { of, Subject } from 'rxjs';
-import { catchError, take, takeUntil } from 'rxjs/operators';
+import { catchError, filter, take, takeUntil, tap } from 'rxjs/operators';
 import { HubResult } from '../../../common/models/hub-result';
-import { MafiaSignalRService } from '../../services/mafia-signalr.service';
+import { MafiaMessage, MafiaSignalRService } from '../../services/mafia-signalr.service';
 
 @Component({
   selector: 'app-mafia-game',
@@ -27,19 +27,31 @@ export class MafiaGameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.mafiaSignalRService.updateState()
-    //   .pipe(
-    //     take(1),
-    //     catchError(_ => of(null))
-    //   )
-    //   .subscribe((result: HubResult) => {
-
-    //   });
+    this.initMessagesSubscription();
   }
 
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  initMessagesSubscription() {
+    this.mafiaSignalRService.onMessage
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(event => !!event?.messageType),
+        tap(e => console.log(e.data))
+      )
+      .subscribe(
+        event => {
+          switch (event.messageType) {
+            case MafiaMessage.AvailableGames:
+              break;
+            case MafiaMessage.UpdateState:
+              break;
+          }
+        }
+      );
   }
 
 }

@@ -1,14 +1,36 @@
-<ng-template [ngIf]="createdGames?.active?.length">
-  <div *ngFor="let activeGame of createdGames.active" class="row justify-content-between shadow-sm rounded rounded-sm bg-white g-0 m-2">
-    <div class="col-8 d-flex flex-column justify-content-center pl-2">
-      <div class="font-weight-bold text-clip">{{activeGame.name}}</div>
-      <div>{{activeGame.capacity}}</div>
-    </div>
-    <div class="col-4 d-flex align-items-center justify-content-center pr-2">
-      <button class="btn btn-success">Reconnect</button>
+<div *ngIf="createdGames?.active?.length" class="m-2">
+  <div type="button" class="bg-collapse font-weight-bold pl-2" data-toggle="collapse" data-target="#activeGamesRef" aria-controls="activeGamesRef">
+    Active games
+  </div>
+  <div class="collapse show ml-2" id="activeGamesRef">
+    <div *ngFor="let activeGame of createdGames.active" class="row justify-content-between shadow-sm rounded rounded-sm bg-white g-0 my-1">
+      <div class="col-8 d-flex flex-column justify-content-center pl-2">
+        <div class="font-weight-bold text-clip">{{activeGame.name}}</div>
+        <div>{{activeGame.capacity}}</div>
+      </div>
+      <div class="col-4 d-flex align-items-center justify-content-center pr-2">
+        <button class="btn btn-success" (click)="reconnect(activeGame.id)">Reconnect</button>
+      </div>
     </div>
   </div>
-</ng-template>
+</div>
+
+<div *ngIf="createdGames?.avalible?.length" class="m-2">
+  <div type="button" class="bg-collapse font-weight-bold pl-2" data-toggle="collapse" data-target="#avalibleGamesRef" aria-controls="avalibleGamesRef">
+    Avalible games
+  </div>
+  <div class="collapse show ml-2" id="avalibleGamesRef">
+    <div *ngFor="let avalibleGame of createdGames.avalible" class="row justify-content-between shadow-sm rounded rounded-sm bg-white g-0 my-1">
+      <div class="col-8 d-flex flex-column justify-content-center pl-2">
+        <div class="font-weight-bold text-clip">{{avalibleGame.name}}</div>
+        <div>{{avalibleGame.capacity}}</div>
+      </div>
+      <div class="col-4 d-flex align-items-center justify-content-center pr-2">
+        <button class="btn btn-success" (click)="join(avalibleGame.id)">Join</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="footer">
   <button class="btn btn-success ml-2" (click)="createGame()">Create game</button>

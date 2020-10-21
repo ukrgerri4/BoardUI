@@ -13,6 +13,10 @@ export abstract class BaseGameSignalRService<TMessageType> implements OnDestroy 
 
   protected messageSubject = new Subject<{ messageType: TMessageType, data: any }>();
 
+  get state() {
+    return this.hubConnection?.state;
+  }
+
   get onMessage() {
     return this.messageSubject.asObservable();
   }
