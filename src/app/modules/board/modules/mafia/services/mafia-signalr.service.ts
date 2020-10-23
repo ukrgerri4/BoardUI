@@ -1,14 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { from, of } from 'rxjs';
-import { catchError, filter, tap } from 'rxjs/operators';
+import { from } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { HubResult } from '../../common/models/hub-result';
 import { BaseGameSignalRService } from '../../common/services/base-game-signalr.service';
 
 export enum MafiaMessage {
-  AvailableGames = 1,
-  UpdateState = 2,
-  CreateGame = 3
+  UpdateHostGames = 1,
+  UpdateState = 2
 }
 
 @Injectable()
@@ -17,23 +14,27 @@ export class MafiaSignalRService extends BaseGameSignalRService<MafiaMessage> im
   constructor(protected authService: AuthService) {
     super(authService, 'mafia');
 
-    this.hubConnection?.on('available-games', data => this.messageSubject.next({ messageType: MafiaMessage.AvailableGames, data }));
-    this.hubConnection?.on('update-state', data => this.messageSubject.next({ messageType: MafiaMessage.UpdateState, data }));
+    this.hubConnection?.on('upd-host-games', data => this.messageSubject.next({ messageType: MafiaMessage.UpdateHostGames, data }));
+    this.hubConnection?.on('upd-state', data => this.messageSubject.next({ messageType: MafiaMessage.UpdateState, data }));
   }
 
   ngOnDestroy() {
     super.ngOnDestroy();
   }
 
-  public createGame() {
-    return from(this.hubConnection?.invoke('CreateGame'));
-  }
-
-  public updateState() {
-    return from(this.hubConnection?.invoke('UpdateState'));
-  }
-
   public games() {
-    return from(this.hubConnection?.invoke('Games'));
+    return from(this.hubConnection?.invoke('host-games'));
+  }
+
+  public createGame(queryModel: any) {
+    return from(this.hubConnection?.invoke('create', queryModel));
+  }
+
+  public joinGame(gameId: string) {
+    return from(this.hubConnection?.invoke('join', gameId));
+  }
+
+  public getState(gameId: string) {
+    return from(this.hubConnection?.invoke('state', gameId));
   }
 }

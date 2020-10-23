@@ -4,5 +4,5 @@ export class HubResult {
 }
 
 export function isSuccesStatusCode(result: HubResult): boolean {
-  return result?.code >= 200 && result?.code < 300;
+  return !!result?.code && result.code >= 200 && result.code < 300;
 }

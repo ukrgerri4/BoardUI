@@ -1,1 +1,24 @@
-<p>mafia-game works!</p>
+<div>{{data.state}}</div>
+<div class="row row-cols-3 g-0" >
+  <div *ngFor="let player of data.players" class="col card" [ngSwitch]="showRoles">
+
+    <img *ngSwitchCase="false" src="assets/images/unknown_25x25.jpg" class="card-img-top">
+    <img *ngSwitchCase="true" src="assets/images/godfather_50x50.jpg" class="card-img-top">
+    <img *ngSwitchDefault src="assets/images/unknown_50x50.jpg" class="card-img-top">
+    
+    <div class="card-body">
+      <p class="card-text">{{player.id}}</p>
+      <p class="card-text">{{player.name}}</p>
+      <p class="card-text">{{player.connected}}</p>
+    </div>
+  </div>
+    <!-- <div>{{player.id}}</div>
+    <div>{{player.name}}</div>
+    <div>{{player.isLive}}</div>
+    <div>{{player.role}}</div>
+    <div>{{player.connected}}</div> -->
+</div>
+
+<div class="footer">
+  <button class="btn btn-success ml-2" (click)="show()">Show</button>
+</div>

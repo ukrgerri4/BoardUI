@@ -23,7 +23,7 @@
     "@angular/router": "~10.1.1",
     "@angular/service-worker": "~10.1.1",
     "@aspnet/signalr": "^1.1.4",
-    "bootstrap": "^5.0.0-alpha1",
+    "bootstrap": "^5.0.0-alpha2",
     "ngx-bootstrap": "^6.1.0",
     "ngx-toastr": "^13.1.0",
     "rxjs": "~6.5.4",

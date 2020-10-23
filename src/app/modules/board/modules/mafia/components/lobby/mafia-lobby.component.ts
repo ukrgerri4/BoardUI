@@ -4,30 +4,9 @@ import { HubConnectionState } from '@aspnet/signalr';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { interval, Subject } from 'rxjs';
 import { debounce, filter, finalize, take, takeUntil, tap } from 'rxjs/operators';
+import { HubResult, isSuccesStatusCode } from '../../../common/models/hub-result';
 import { MafiaMessage, MafiaSignalRService } from '../../services/mafia-signalr.service';
 import { MafiaCreateComponent } from '../create/mafia-create.component';
-
-const testData = {
-  active: [
-    {
-      id: 1,
-      name: 'running-game',
-      capacity: '4/6'
-    }
-  ],
-  avalible: [
-    {
-      id: 2,
-      name: 'huba-buba',
-      capacity: '3/5'
-    },
-    {
-      id: 3,
-      name: 'test-game',
-      capacity: '1/7'
-    }
-  ]
-};
 
 @Component({
   selector: 'app-mafia-lobby',
@@ -37,7 +16,7 @@ const testData = {
 })
 export class MafiaLobbyComponent implements OnInit, OnDestroy {
 
-  public createdGames: any = testData;
+  public createdGames: any = {};
   // public activeGamesExpanded = true;
   // public avalibleGamesExpanded = true;
 
@@ -52,9 +31,9 @@ export class MafiaLobbyComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    var interval = setInterval(() => {
+    const intervalRef = setInterval(() => {
       if (this.mafiaSignalRService.state === HubConnectionState.Connected) {
-        clearInterval(interval);
+        clearInterval(intervalRef);
         this.getGames();
       }
     }, 500);
@@ -89,8 +68,9 @@ export class MafiaLobbyComponent implements OnInit, OnDestroy {
         },
         animated: true,
         keyboard: false,
-        backdrop: false,
-        class: 'modal-fullscreen'
+        backdrop: true,
+        class: 'modal-xl'
+        // class: 'modal-fullscreen'
       }
     );
 
@@ -103,11 +83,23 @@ export class MafiaLobbyComponent implements OnInit, OnDestroy {
   }
 
   reconnect(gameId: string) {
-
+    //check if game exist??
+    this.router.navigate([gameId], { relativeTo: this.route });
   }
 
   join(gameId: string) {
-
+    this.mafiaSignalRService.joinGame(gameId)
+      .pipe(
+        take(1),
+        finalize(() => this.cdr.markForCheck())
+      )
+      .subscribe(
+        (result: HubResult) => {
+          if (isSuccesStatusCode(result) && result.data) {
+            this.router.navigate([result.data], { relativeTo: this.route });
+          }
+        }
+      );
   }
   // createGame() {
   //   this.mafiaSignalRService.createGame();

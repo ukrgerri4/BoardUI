@@ -11,6 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 registerLocaleData(localeRu);
 
@@ -25,7 +26,9 @@ registerLocaleData(localeRu);
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ModalModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

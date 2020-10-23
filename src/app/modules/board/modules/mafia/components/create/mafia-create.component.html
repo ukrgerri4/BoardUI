@@ -1,12 +1,29 @@
 <div class="modal-header">
-  <h5 class="modal-title">Modal title</h5>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-    <span>&times;</span>
-  </button>
+  <h5 class="modal-title">Game creating</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="bsModalRef.hide()"></button>
 </div>
 <div class="modal-body">
-  ...
+  <form [formGroup]="form" novalidate>
+    <div class="mb-3">
+      <label for="login" class="form-label font-weight-bold">Name</label>
+      <input
+        type="text"
+        formControlName="name"
+        class="form-control"
+        [ngClass]="{'is-invalid': submitted && name?.invalid }">
+    </div>
+    <div>
+      <label for="password" class="form-label font-weight-bold">Max players</label>
+      <input
+        type="number"
+        min="3" max="99" slot="1" 
+        formControlName="maxPlayers" 
+        class="form-control"
+        [ngClass]="{'is-invalid': submitted && maxPlayers?.invalid }">
+    </div>
+  </form>
 </div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="createGame()">Create</button>
+<div class="modal-footer justify-content-around">
+  <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Cancel</button>
+  <button type="button" class="btn btn-success" (click)="onSubmit()">Create</button>
 </div>

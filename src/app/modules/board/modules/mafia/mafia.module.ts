@@ -8,6 +8,7 @@ import { MafiaRoutingModule } from './mafia-routing.module';
 import { MafiaLobbyComponent } from './components/lobby/mafia-lobby.component';
 import { MafiaCreateComponent } from './components/create/mafia-create.component';
 import { MafiaGameComponent } from './components/game/mafia-game.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,8 @@ import { MafiaGameComponent } from './components/game/mafia-game.component';
   imports: [
     MafiaRoutingModule,
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule
   ],
   providers: [
